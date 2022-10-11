@@ -1,4 +1,4 @@
-package oleksandr.spring5.petclinicdemo;
+package petclinicdemo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
