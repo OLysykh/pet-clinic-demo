@@ -2,10 +2,11 @@ package oleksandr.spring5.petclinicdemo.services.map;
 
 import oleksandr.spring5.petclinicdemo.model.Vet;
 import oleksandr.spring5.petclinicdemo.services.CrudService;
+import oleksandr.spring5.petclinicdemo.services.VetService;
 
 import java.util.Set;
 
-public class VetServiceMap extends AbstractMapService<Vet, Long> implements CrudService<Vet, Long>  {
+public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService{
     @Override
     public Set<Vet> findAll() {
         return super.findAll();
@@ -30,5 +31,10 @@ super.delete(object);
     @Override
     public Vet findById(Long id) {
         return super.findById(id);
+    }
+
+    @Override
+    public Vet findByLastName(String lastName) {
+        return null;
     }
 }
