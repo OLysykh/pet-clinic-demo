@@ -1,33 +1,42 @@
 package oleksandr.spring5.petclinicdemo.bootstrap;
 
-import oleksandr.spring5.petclinicdemo.model.Owner;
-import oleksandr.spring5.petclinicdemo.model.Pet;
-import oleksandr.spring5.petclinicdemo.model.PetType;
-import oleksandr.spring5.petclinicdemo.model.Vet;
+import oleksandr.spring5.petclinicdemo.model.*;
 import oleksandr.spring5.petclinicdemo.services.OwnerService;
 import oleksandr.spring5.petclinicdemo.services.PetTypeService;
+import oleksandr.spring5.petclinicdemo.services.SpecialityService;
 import oleksandr.spring5.petclinicdemo.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
+
+//why method can be not static?m so it`s like psvm but with magic?
 @Component
 public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
+    private final SpecialityService specialityService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
+        this.specialityService = specialityService;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
+        int count = petTypeService.findAll().size();
+        if (count == 0) {
+            loadData();
+        }
+    }
+
+    private void loadData() {
         PetType dog = new PetType();
         dog.setName("Dog");
         PetType savedDogType = petTypeService.save(dog);
@@ -38,7 +47,17 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Loaded PetTypes....");
 
+        Speciality radiology = new Speciality();
+        radiology.setDescription("Radiology");
+        Speciality savedRadiology = specialityService.save(radiology);
+        Speciality surgery = new Speciality();
+        surgery.setDescription("Surgery");
+        Speciality savedSurgery = specialityService.save(surgery);
+        Speciality dentistry = new Speciality();
+        dentistry.setDescription("Dentistry");
+        Speciality sabedDentistry = specialityService.save(dentistry);
 
+        System.out.println("Specialoities are created....");
 
         Owner owner1 = new Owner();
         owner1.setFirstName("Michael");
@@ -81,15 +100,16 @@ public class DataLoader implements CommandLineRunner {
         vet1.setFirstName("Sam");
         vet1.setLastName("Axe");
         vetService.save(vet1);
+        vet1.getSpecialties().add(savedRadiology);
 
         Vet vet2 = new Vet();
         vet2.setFirstName("Jessie");
         vet2.setLastName("Porter");
         vetService.save(vet2);
+        vet2.getSpecialties().add(savedSurgery);
 
         System.out.println("Loaded Vets....");
 
-
-
+       vet2.getSpecialties().forEach(System.out::println);
     }
 }

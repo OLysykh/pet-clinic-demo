@@ -7,12 +7,14 @@ oleksandr\spring5\petclinicdemo\services\map\PetTypeMapService.class
 oleksandr\spring5\petclinicdemo\model\PetType.class
 oleksandr\spring5\petclinicdemo\model\BaseEntity.class
 oleksandr\spring5\petclinicdemo\model\Visit.class
+oleksandr\spring5\petclinicdemo\services\map\SpecialityServiceMap.class
 oleksandr\spring5\petclinicdemo\model\Owner.class
 oleksandr\spring5\petclinicdemo\services\CrudService.class
 oleksandr\spring5\petclinicdemo\services\map\PetServiceMap.class
 oleksandr\spring5\petclinicdemo\services\PetService.class
+oleksandr\spring5\petclinicdemo\services\SpecialityService.class
 oleksandr\spring5\petclinicdemo\model\Pet.class
-oleksandr\spring5\petclinicdemo\model\Specialty.class
+oleksandr\spring5\petclinicdemo\model\Speciality.class
 oleksandr\spring5\petclinicdemo\services\map\VetServiceMap.class
 oleksandr\spring5\petclinicdemo\model\Person.class
 oleksandr\spring5\petclinicdemo\services\OwnerService.class
