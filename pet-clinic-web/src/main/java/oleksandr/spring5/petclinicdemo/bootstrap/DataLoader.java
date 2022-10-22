@@ -1,10 +1,7 @@
 package oleksandr.spring5.petclinicdemo.bootstrap;
 
 import oleksandr.spring5.petclinicdemo.model.*;
-import oleksandr.spring5.petclinicdemo.services.OwnerService;
-import oleksandr.spring5.petclinicdemo.services.PetTypeService;
-import oleksandr.spring5.petclinicdemo.services.SpecialityService;
-import oleksandr.spring5.petclinicdemo.services.VetService;
+import oleksandr.spring5.petclinicdemo.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -20,11 +17,14 @@ public class DataLoader implements CommandLineRunner {
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
+    private final VisitService visitService;
+
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -67,6 +67,10 @@ public class DataLoader implements CommandLineRunner {
         owner1.setTelephone("067-232-62-03");
 
 
+
+
+
+
         Pet michaelsCat = new Pet();
         michaelsCat.setPetType(savedCatType);
         michaelsCat.setOwner(owner1);
@@ -80,9 +84,9 @@ public class DataLoader implements CommandLineRunner {
         Owner owner2 = new Owner();
         owner2.setFirstName("Fiona");
         owner2.setLastName("Glenanne");
-        owner1.setAddress("Wasghington 1");
-        owner1.setCity("DC");
-        owner1.setTelephone("063-234-45-88");
+        owner2.setAddress("Wasghington 1");
+        owner2.setCity("DC");
+        owner2.setTelephone("063-234-45-88");
 
 
         Pet fionasDog = new Pet();
@@ -93,7 +97,13 @@ public class DataLoader implements CommandLineRunner {
         owner2.getPets().add(fionasDog);
 
         ownerService.save(owner2);
+        Visit dogVisit = new Visit();
+        dogVisit.setPet(fionasDog);
+        dogVisit.setDate(LocalDate.now());
+        dogVisit.setDescription("sneaky doggy");
 
+
+        visitService.save(dogVisit);
         System.out.println("Loaded Owners....");
 
         Vet vet1 = new Vet();
@@ -110,6 +120,6 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Loaded Vets....");
 
-       vet2.getSpecialties().forEach(System.out::println);
+        vet2.getSpecialties().forEach(System.out::println);
     }
 }

@@ -35,8 +35,5 @@ super.deleteById(id);
         return super.findById(id);
     }
 
-    @Override
-    public Pet findByLastName(String lastName) {
-        return null;
-    }
+
 }
